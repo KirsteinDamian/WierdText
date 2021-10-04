@@ -4,12 +4,26 @@ from commons import TOKENIZER_RE, SEPARATOR, is_shuffleable
 
 
 def shuffle_word(word: str) -> str:
+    """
+    Shuffle characters of the word.
+    First and the last characters don't change.
+    """
     middle_characters = list(word[1:-1])
     random.shuffle(middle_characters)
     return word[0] + ''.join(middle_characters) + word[-1]
 
 
 def encode(sentence: str) -> str:
+    """
+    Encode a sentence in Unicode.
+    Note: shuffle_word may return the same value as argument, so we need
+          to ensure if shuffled word has changed
+    :return
+    '\n—weird—\n'
+    '{encoded sentence}'
+    '\n—weird—\n'
+    '{sorted list of original words}'
+    """
     encoded_sentence = SEPARATOR
     sorted_words = []
     words = TOKENIZER_RE.split(sentence)
